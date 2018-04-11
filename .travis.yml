@@ -4,7 +4,8 @@ cache: false
 env:
 - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
-
+- openssl aes-256-cbc -K $encrypted_905a8dd9b1eb_key -iv $encrypted_905a8dd9b1eb_iv
+  -in assets/server.key.enc -out assets/server.key -d
 - export SFDX_AUTOUPDATE_DISABLE=false
 - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 - export SFDX_DOMAIN_RETRY=300
@@ -21,4 +22,3 @@ script:
 - sfdx force:source:push -u ciorg
 - sfdx force:apex:test:run -u ciorg -c -r human
 - sfdx force:org:delete -u ciorg -p
-
